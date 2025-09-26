@@ -72,15 +72,15 @@ class CORSProxyHandler(http.server.SimpleHTTPRequestHandler):
 
 
     def call_gemini_api(self, request_data):
-        # APIキーはソースコード管理
-        api_key = 'AIzaSyCEGUEEDxUZC2-qO0BpOiK4iiYbpYhA0mc'
+        # Gemini APIキー（環境変数から取得）
+        api_key = os.getenv('GEMINI_API_KEY', 'YOUR_GEMINI_API_KEY')
         prompt = request_data.get('prompt')
         
         if not prompt:
             raise ValueError("Prompt is required")
         
         # Google Gemini API呼び出し（最新のエンドポイント）
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key={api_key}"
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={api_key}"
         headers = {
             'Content-Type': 'application/json'
         }
