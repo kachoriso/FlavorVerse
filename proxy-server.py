@@ -189,8 +189,8 @@ class CORSProxyHandler(http.server.SimpleHTTPRequestHandler):
             raise Exception("No choices in Groq response")
 
     def call_cohere_api(self, request_data):
-        # APIキーはソースコード管理
-        api_key = 'hvLHJgs3tYnRO7Epi3YsZWwaVOoJq8U2LmAiQtxL'
+        # Cohere APIキー（環境変数から取得）
+        api_key = os.getenv('COHERE_API_KEY', 'YOUR_COHERE_API_KEY')
         prompt = request_data.get('prompt')
         
         if not prompt:

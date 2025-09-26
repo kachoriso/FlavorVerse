@@ -15,6 +15,7 @@ cp env.example .env
 ```
 GEMINI_API_KEY=your_actual_gemini_api_key
 GROQ_API_KEY=your_actual_groq_api_key
+COHERE_API_KEY=your_actual_cohere_api_key
 ```
 
 ### 2. プロキシサーバーの起動
@@ -45,6 +46,7 @@ GitHubリポジトリの Settings > Secrets and variables > Actions で以下の
 
 - `GEMINI_API_KEY`: Google Gemini APIキー
 - `GROQ_API_KEY`: Groq APIキー
+- `COHERE_API_KEY`: Cohere APIキー
 - `AWS_ACCESS_KEY_ID`: AWSアクセスキーID
 - `AWS_SECRET_ACCESS_KEY`: AWSシークレットアクセスキー
 

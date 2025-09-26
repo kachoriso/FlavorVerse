@@ -36,6 +36,7 @@ jobs:
         
         # proxy-server.pyのAPIキーを置換
         sed -i "s/YOUR_GROQ_API_KEY/${{ secrets.GROQ_API_KEY }}/g" proxy-server.py
+        sed -i "s/YOUR_COHERE_API_KEY/${{ secrets.COHERE_API_KEY }}/g" proxy-server.py
         
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v4
