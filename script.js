@@ -1155,6 +1155,88 @@ class FlavorVerse {
         }
     }
 
+    // タグとフレーバー選択を無効化
+    disableTagAndFlavorSelection() {
+        // タグ選択ボタンを無効化
+        const tagOptions = document.querySelectorAll('.tag-option');
+        tagOptions.forEach(button => {
+            button.disabled = true;
+            button.style.opacity = '0.5';
+            button.style.cursor = 'not-allowed';
+        });
+        
+        // フレーバー選択チェックボックスを無効化
+        const flavorCheckboxes = document.querySelectorAll('.flavor-options input[type="checkbox"]');
+        flavorCheckboxes.forEach(checkbox => {
+            checkbox.disabled = true;
+            checkbox.style.opacity = '0.5';
+        });
+        
+        // カスタムフレーバー入力も無効化
+        const customFlavorInputs = document.querySelectorAll('#custom-flavor, #mobile-custom-flavor');
+        customFlavorInputs.forEach(input => {
+            input.disabled = true;
+            input.style.opacity = '0.5';
+        });
+        
+        // カスタムフレーバー追加ボタンも無効化
+        const addCustomButtons = document.querySelectorAll('#add-custom-flavor, #add-mobile-custom-flavor');
+        addCustomButtons.forEach(button => {
+            button.disabled = true;
+            button.style.opacity = '0.5';
+            button.style.cursor = 'not-allowed';
+        });
+        
+        // フレーバー削除ボタンも無効化
+        const removeButtons = document.querySelectorAll('.remove-custom-flavor');
+        removeButtons.forEach(button => {
+            button.disabled = true;
+            button.style.opacity = '0.5';
+            button.style.cursor = 'not-allowed';
+        });
+    }
+
+    // タグとフレーバー選択を有効化（リセット時用）
+    enableTagAndFlavorSelection() {
+        // タグ選択ボタンを有効化
+        const tagOptions = document.querySelectorAll('.tag-option');
+        tagOptions.forEach(button => {
+            button.disabled = false;
+            button.style.opacity = '1';
+            button.style.cursor = 'pointer';
+        });
+        
+        // フレーバー選択チェックボックスを有効化
+        const flavorCheckboxes = document.querySelectorAll('.flavor-options input[type="checkbox"]');
+        flavorCheckboxes.forEach(checkbox => {
+            checkbox.disabled = false;
+            checkbox.style.opacity = '1';
+        });
+        
+        // カスタムフレーバー入力も有効化
+        const customFlavorInputs = document.querySelectorAll('#custom-flavor, #mobile-custom-flavor');
+        customFlavorInputs.forEach(input => {
+            input.disabled = false;
+            input.style.opacity = '1';
+        });
+        
+        // カスタムフレーバー追加ボタンも有効化
+        const addCustomButtons = document.querySelectorAll('#add-custom-flavor, #add-mobile-custom-flavor');
+        addCustomButtons.forEach(button => {
+            button.disabled = false;
+            button.style.opacity = '1';
+            button.style.cursor = 'pointer';
+        });
+        
+        // フレーバー削除ボタンも有効化
+        const removeButtons = document.querySelectorAll('.remove-custom-flavor');
+        removeButtons.forEach(button => {
+            button.disabled = false;
+            button.style.opacity = '1';
+            button.style.cursor = 'pointer';
+        });
+    }
+
     async generateTastingNotes() {
         // 結果セクションを先に表示
         this.showStep(5);
@@ -1164,6 +1246,9 @@ class FlavorVerse {
         
         // 結果アクションボタンを非表示
         this.hideResultActions();
+        
+        // 生成開始時にタグとフレーバー選択を無効化
+        this.disableTagAndFlavorSelection();
 
         try {
             const tastingNote = await this.generateWithAIFallback();
@@ -2184,6 +2269,9 @@ class FlavorVerse {
         
         // 現在のタグに応じてUIを更新
         this.updateTagSelectionUI();
+        
+        // タグとフレーバー選択を有効化
+        this.enableTagAndFlavorSelection();
         
         // Reset current step
         this.currentStep = 1;
