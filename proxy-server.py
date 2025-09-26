@@ -80,7 +80,7 @@ class CORSProxyHandler(http.server.SimpleHTTPRequestHandler):
             raise ValueError("Prompt is required")
         
         # Google Gemini API呼び出し（最新のエンドポイント）
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={api_key}"
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key={api_key}"
         headers = {
             'Content-Type': 'application/json'
         }
