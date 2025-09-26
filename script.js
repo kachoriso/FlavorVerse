@@ -1194,6 +1194,14 @@ class FlavorVerse {
             button.style.opacity = '0.5';
             button.style.cursor = 'not-allowed';
         });
+        
+        // ナビゲーションボタンを無効化
+        const nextButtons = document.querySelectorAll('#next-step, #confirm-flavors');
+        nextButtons.forEach(button => {
+            button.disabled = true;
+            button.style.opacity = '0.5';
+            button.style.cursor = 'not-allowed';
+        });
     }
 
     // タグとフレーバー選択を有効化（リセット時用）
@@ -1231,6 +1239,14 @@ class FlavorVerse {
         // フレーバー削除ボタンも有効化
         const removeButtons = document.querySelectorAll('.remove-custom-flavor');
         removeButtons.forEach(button => {
+            button.disabled = false;
+            button.style.opacity = '1';
+            button.style.cursor = 'pointer';
+        });
+        
+        // ナビゲーションボタンを有効化
+        const nextButtons = document.querySelectorAll('#next-step, #confirm-flavors');
+        nextButtons.forEach(button => {
             button.disabled = false;
             button.style.opacity = '1';
             button.style.cursor = 'pointer';
