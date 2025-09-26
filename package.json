@@ -1,0 +1,13 @@
+{
+  "name": "flavorverse",
+  "version": "1.0.0",
+  "description": "AI-powered wine tasting note generator",
+  "main": "index.html",
+  "scripts": {
+    "dev": "python3 -m http.server 8000",
+    "start": "python3 -m http.server 8000"
+  },
+  "keywords": ["wine", "tasting", "notes", "ai"],
+  "author": "",
+  "license": "MIT"
+}

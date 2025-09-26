@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlavorVerse - ワインテイスティングノート生成</title>
+    <link rel="stylesheet" href="styles.css?v=20250921-4">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <div class="title-section">
+                    <h1>🍷 FlavorVerse</h1>
+                    <p>AIがあなたのワインを詩的に表現します</p>
+                </div>
+                <button class="hamburger-menu" id="hamburgerMenu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                
+                <!-- Navigation Menu -->
+                <div class="nav-menu" id="navMenu">
+                    <div class="nav-item" id="navHome">
+                        <span class="nav-icon">🏠</span>
+                        <span class="nav-text">ホーム</span>
+                    </div>
+                    <div class="nav-item" id="navList">
+                        <span class="nav-icon">📋</span>
+                        <span class="nav-text">一覧</span>
+                    </div>
+                    <!-- 設定メニューは削除 -->
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <!-- Step 1: Wine Label Upload -->
+            <section class="step-section" id="upload-section">
+                <div class="step-header">
+                    <h2>📸 写真の登録</h2>
+                    <button class="toggle-step" id="toggle-step-1" style="display: none;">▼</button>
+                </div>
+                <div class="step-content" id="step-content-1">
+                <div class="upload-area">
+                    <div class="camera-preview" id="camera-preview" style="display: none;">
+                        <video id="video" autoplay playsinline></video>
+                        <canvas id="canvas" style="display: none;"></canvas>
+                    </div>
+                    <div class="upload-controls">
+                        <button id="start-camera" class="btn btn-primary">カメラを開く</button>
+                        <button id="capture-photo" class="btn btn-secondary" style="display: none;">撮影</button>
+                        <input type="file" id="file-input" accept="image/*" style="display: none;">
+                        <button id="upload-file" class="btn btn-outline">ファイルから選択</button>
+                    </div>
+                    <div class="captured-image" id="captured-image" style="display: none;">
+                        <img id="wine-image" alt="撮影したワインラベル">
+                        <button id="retake-photo" class="btn btn-small">撮り直し</button>
+                    </div>
+                </div>
+                <div class="step-actions">
+                    <button id="skip-photo" class="btn btn-outline">📝 写真なしで進む</button>
+                </div>
+                </div>
+            </section>
+
+            <!-- Step 2: Tag Selection -->
+            <section class="step-section" id="tag-section" style="display: none;">
+                <div class="step-header">
+                    <h2>🏷️ タグを選択</h2>
+                    <button class="toggle-step" id="toggle-step-2" style="display: none;">▼</button>
+                </div>
+                <div class="step-content" id="step-content-2">
+                    <div class="tag-selection">
+                        <p>この飲み物の種類を選択してください：</p>
+                        <div class="tag-options">
+                            <button class="tag-option" data-tag="ワイン">🍷 ワイン</button>
+                            <button class="tag-option" data-tag="ウイスキー">🥃 ウイスキー</button>
+                        </div>
+                        <div class="selected-tag-display">
+                            <span id="selected-tag-text">選択されたタグ: <strong id="current-tag">ワイン</strong></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="step-actions">
+                    <button id="confirm-tag" class="btn btn-primary">次へ進む</button>
+                </div>
+            </section>
+
+            <!-- Step 3: Flavor Wheel Selection -->
+            <section class="step-section" id="flavor-section" style="display: none;">
+                <div class="step-header">
+                    <h2>🎯 フレーバーを選択</h2>
+                    <button class="toggle-step" id="toggle-step-3" style="display: none;">▼</button>
+                </div>
+                <div class="step-content" id="step-content-3">
+                <!-- デスクトップ表示用のフレーバーホイール（動的生成） -->
+                <div class="flavor-wheel desktop-only">
+                    <!-- JavaScriptで動的に生成されます -->
+                </div>
+                
+                <!-- スマホ表示用のフレーバーグリッド（動的生成） -->
+                <div class="mobile-flavor-tabs mobile-only">
+                    <!-- JavaScriptで動的に生成されます -->
+                </div>
+                
+                <div class="step-actions">
+                    <button id="confirm-flavors" class="btn btn-primary" style="display: none;">✅ フレーバーを確定</button>
+                </div>
+                </div>
+            </section>
+
+            <!-- Step 3: Poetry Level（完全にスキップ） -->
+            <!--
+            <section class="step-section" id="poetry-section" style="display: none;">
+                <div class="step-header">
+                    <h2>🎭 表現の詩的度合いを選択</h2>
+                    <button class="toggle-step" id="toggle-step-4" style="display: none;">▼</button>
+                </div>
+                <div class="step-content" id="step-content-4">
+                <div class="poetry-level">
+                    <div class="poetry-fixed">
+                        <label>ポエム度合い:</label>
+                        <span class="poetry-fixed-value">標準</span>
+                    </div>
+                    <div class="poetry-description">
+                        標準的な表現でテイスティングノートを生成します
+                    </div>
+                </div>
+                <div class="step-actions">
+                    <button id="confirm-poetry" class="btn btn-primary">✅ 詩的度合いを確定</button>
+                </div>
+                </div>
+            </section>
+            -->
+
+
+            <!-- Step 5: Results -->
+            <section class="step-section" id="results-section" style="display: none;">
+                <h2>📝 テイスティングノート</h2>
+                
+                <div class="tasting-note" id="tasting-note">
+                    <!-- Progress Bar -->
+                    <div class="progress-container" id="progress-container" style="display: none;">
+                        <div class="progress-icon">🍷</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-fill"></div>
+                        </div>
+                        <div class="progress-text" id="progress-text">生成中...</div>
+                    </div>
+                    <!-- Generated content will appear here -->
+                </div>
+                <div class="result-actions">
+                    <button id="regenerate" class="btn btn-secondary">再生成</button>
+                    <button id="copy-note" class="btn btn-outline">テキストコピー</button>
+                    <button id="save-note" class="btn btn-primary">保存</button>
+                    <button id="start-over" class="btn btn-outline">最初から</button>
+                </div>
+            </section>
+            
+            <!-- List Page -->
+            <section class="page-section" id="list-page" style="display: none;">
+                <div class="page-header">
+                    <h2>📋 テイスティングノート一覧</h2>
+                </div>
+                
+                <div class="list-controls">
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="テイスティングノートを検索...">
+                        <button id="searchBtn">🔍</button>
+                    </div>
+                    <div class="filter-controls">
+                        <select id="tagFilter">
+                            <option value="">すべて</option>
+                            <option value="ワイン">ワイン</option>
+                            <option value="ウイスキー">ウイスキー</option>
+                            <option value="日本酒">日本酒</option>
+                        </select>
+                        <select id="sortBy">
+                            <option value="date-desc">新しい順</option>
+                            <option value="date-asc">古い順</option>
+                            <option value="tag">タグ順</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="notes-list" id="notesList">
+                    <!-- Saved notes will appear here -->
+                </div>
+            </section>
+            
+            <!-- Settings Page（一時的に非表示） -->
+            <!--
+            <section class="page-section" id="settings-page" style="display: none;">
+                <div class="page-header">
+                    <h2>⚙️ 設定</h2>
+                </div>
+                
+                <div class="settings-content">
+                    <div class="settings-section">
+                        <h3>AI生成設定</h3>
+                        <div class="setting-item">
+                            <label>Google Gemini</label>
+                            <input type="checkbox" id="enableGemini" checked>
+                        </div>
+                        <div class="setting-item">
+                            <label>Groq AI</label>
+                            <input type="checkbox" id="enableGroq" checked>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <h3>デフォルト設定</h3>
+                        <div class="setting-item">
+                            <label>デフォルトポエム度合い</label>
+                            <input type="range" id="defaultPoetryLevel" min="1" max="5" value="3">
+                            <span id="poetryLevelValue">3</span>
+                        </div>
+                        <div class="setting-item">
+                            <label>デフォルトタグ</label>
+                            <select id="defaultTag">
+                                <option value="ワイン">ワイン</option>
+                                <option value="ウイスキー">ウイスキー</option>
+                                <option value="日本酒">日本酒</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <h3>データ管理</h3>
+                        <div class="setting-item">
+                            <button id="exportData" class="btn btn-outline">データをエクスポート</button>
+                        </div>
+                        <div class="setting-item">
+                            <button id="importData" class="btn btn-outline">データをインポート</button>
+                            <input type="file" id="importFile" accept=".json" style="display: none;">
+                        </div>
+                        <div class="setting-item">
+                            <button id="clearAllData" class="btn btn-danger">全データを削除</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            -->
+        </main>
+
+
+        <footer class="footer">
+            <p>&copy; 2024 FlavorVerse - ワインの詩的表現をAIで</p>
+        </footer>
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+</html>
