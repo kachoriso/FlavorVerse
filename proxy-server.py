@@ -110,14 +110,27 @@ class CORSProxyHandler(http.server.SimpleHTTPRequestHandler):
             }
         }
         
-        req = urllib.request.Request(url,
-                                   data=json.dumps(data).encode('utf-8'),
-                                   headers=headers)
-        
-        with urllib.request.urlopen(req) as response:
-            result = json.loads(response.read().decode('utf-8'))
+        # API呼び出し（リトライ機能付き）
+        import time
+        max_retries = 3
+        for attempt in range(max_retries):
+            try:
+                req = urllib.request.Request(url,
+                                           data=json.dumps(data).encode('utf-8'),
+                                           headers=headers)
+                
+                with urllib.request.urlopen(req) as response:
+                    result = json.loads(response.read().decode('utf-8'))
+                break
+            except urllib.error.HTTPError as e:
+                if e.code == 429 and attempt < max_retries - 1:
+                    print(f"Rate limit hit, waiting {2 ** attempt} seconds...")
+                    time.sleep(2 ** attempt)
+                    continue
+                else:
+                    raise
             
-            if 'candidates' in result and len(result['candidates']) > 0:
+        if 'candidates' in result and len(result['candidates']) > 0:
                 content = result['candidates'][0]['content']['parts'][0]['text'].strip()
                 # 「このワインは」で始まるように調整
                 if not content.startswith('このワインは'):
@@ -162,17 +175,27 @@ class CORSProxyHandler(http.server.SimpleHTTPRequestHandler):
             "top_p": 0.9
         }
         
-        req = urllib.request.Request(url,
-                                   data=json.dumps(data).encode('utf-8'),
-                                   headers=headers)
-        
-        try:
-            with urllib.request.urlopen(req) as response:
-                result = json.loads(response.read().decode('utf-8'))
-        except HTTPError as e:
-            error_body = e.read().decode('utf-8')
-            print(f"Groq API Error {e.code}: {error_body}")
-            raise Exception(f"Groq API Error {e.code}: {error_body}")
+        # API呼び出し（リトライ機能付き）
+        import time
+        max_retries = 3
+        for attempt in range(max_retries):
+            try:
+                req = urllib.request.Request(url,
+                                           data=json.dumps(data).encode('utf-8'),
+                                           headers=headers)
+                
+                with urllib.request.urlopen(req) as response:
+                    result = json.loads(response.read().decode('utf-8'))
+                break
+            except urllib.error.HTTPError as e:
+                if e.code == 429 and attempt < max_retries - 1:
+                    print(f"Rate limit hit, waiting {2 ** attempt} seconds...")
+                    time.sleep(2 ** attempt)
+                    continue
+                else:
+                    error_body = e.read().decode('utf-8')
+                    print(f"Groq API Error {e.code}: {error_body}")
+                    raise Exception(f"Groq API Error {e.code}: {error_body}")
             
         if 'choices' in result and len(result['choices']) > 0:
             content = result['choices'][0]['message']['content'].strip()
