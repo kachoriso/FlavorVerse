@@ -779,26 +779,7 @@ class FlavorVerse {
         
         // 設定メニューは削除済み（navSettings要素は存在しない）
         
-        // List page controls (安全にイベントリスナーを追加)
-        const searchInput = document.getElementById('searchInput');
-        if (searchInput) {
-            searchInput.addEventListener('input', () => this.filterNotes());
-        }
-        
-        const searchBtn = document.getElementById('searchBtn');
-        if (searchBtn) {
-            searchBtn.addEventListener('click', () => this.filterNotes());
-        }
-        
-        const tagFilter = document.getElementById('tagFilter');
-        if (tagFilter) {
-            tagFilter.addEventListener('change', () => this.filterNotes());
-        }
-        
-        const sortBy = document.getElementById('sortBy');
-        if (sortBy) {
-            sortBy.addEventListener('change', () => this.filterNotes());
-        }
+        // List page controls (検索・ソート機能は削除済み)
         
         // Settings page controls (安全にイベントリスナーを追加)
         const exportData = document.getElementById('exportData');
@@ -3332,76 +3313,7 @@ class FlavorVerse {
         }
     }
 
-    // フィルタリング
-    filterNotes() {
-        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-        const tagFilter = document.getElementById('tagFilter').value;
-        const sortBy = document.getElementById('sortBy').value;
 
-        let filteredNotes = [...this.savedNotes];
-
-        // 検索フィルタ
-        if (searchTerm) {
-            filteredNotes = filteredNotes.filter(note => 
-                note.content.toLowerCase().includes(searchTerm) ||
-                note.tag.toLowerCase().includes(searchTerm)
-            );
-        }
-
-        // タグフィルタ
-        if (tagFilter) {
-            filteredNotes = filteredNotes.filter(note => note.tag === tagFilter);
-        }
-
-        // ソート
-        filteredNotes.sort((a, b) => {
-            switch (sortBy) {
-                case 'date-desc':
-                    return new Date(b.createdAt) - new Date(a.createdAt);
-                case 'date-asc':
-                    return new Date(a.createdAt) - new Date(b.createdAt);
-                case 'tag':
-                    return a.tag.localeCompare(b.tag);
-                default:
-                    return 0;
-            }
-        });
-
-        // 表示更新
-        this.displayFilteredNotes(filteredNotes);
-    }
-
-    // フィルタされたノート表示
-    displayFilteredNotes(notes) {
-        const notesList = document.getElementById('notesList');
-        if (notes.length === 0) {
-            notesList.innerHTML = '<p class="no-notes">該当するノートが見つかりません。</p>';
-            return;
-        }
-
-        const notesHtml = notes.map(note => `
-            <div class="note-card" data-id="${note.id}">
-                ${note.image ? `<img src="${note.image}" alt="Wine Label" class="note-card-image">` : '<div class="note-card-image no-image">📷 画像なし</div>'}
-                <div class="note-card-content">
-                    <div class="note-card-text">${note.content}</div>
-                </div>
-                <div class="note-card-meta">
-                    <span class="note-tag">${note.tag}</span>
-                    <span class="note-date">${this.formatDate(note.createdAt)}</span>
-                </div>
-            </div>
-        `).join('');
-
-        notesList.innerHTML = notesHtml;
-
-        // カードクリックイベント
-        notesList.querySelectorAll('.note-card').forEach(card => {
-            card.addEventListener('click', () => {
-                const noteId = card.getAttribute('data-id');
-                this.viewNote(noteId);
-            });
-        });
-    }
 
     // 設定ページ読み込み
     loadSettingsPage() {
