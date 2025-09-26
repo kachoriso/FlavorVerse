@@ -88,18 +88,7 @@ class CORSProxyHandler(http.server.SimpleHTTPRequestHandler):
         data = {
             "contents": [{
                 "parts": [{
-                    "text": f"""あなたは日本のワイン専門家です。以下のワインについて、美しく詩的な日本語でテイスティングノートを書いてください。
-
-ワインの特徴: {prompt}
-
-条件:
-- 必ず日本語で回答してください
-- 200文字程度で簡潔にまとめてください
-- ワイン専門用語を使用してください
-- エレガントで詩的な表現を心がけてください
-- 「このワインは」から始めてください
-
-テイスティングノート:"""
+                    "text": f"飲み物の特徴: {prompt}\n\nこの飲み物について美しく詩的な日本語でテイスティングノートを書いてください。"
                 }]
             }],
             "generationConfig": {
@@ -132,9 +121,9 @@ class CORSProxyHandler(http.server.SimpleHTTPRequestHandler):
             
         if 'candidates' in result and len(result['candidates']) > 0:
                 content = result['candidates'][0]['content']['parts'][0]['text'].strip()
-                # 「このワインは」で始まるように調整
-                if not content.startswith('このワインは'):
-                    content = f"このワインは{content}"
+                # 「この飲み物は」で始まるように調整
+                if not content.startswith('この飲み物は'):
+                    content = f"この飲み物は{content}"
                 return {
                     "content": content,
                     "provider": "Google Gemini"
@@ -163,11 +152,11 @@ class CORSProxyHandler(http.server.SimpleHTTPRequestHandler):
             "messages": [
                 {
                     "role": "system",
-                    "content": "You are a Japanese wine expert. Write elegant and poetic wine tasting notes in Japanese. Always respond in Japanese only."
+                    "content": "You are a Japanese beverage expert. Write elegant and poetic tasting notes in Japanese. Always respond in Japanese only."
                 },
                 {
                     "role": "user",
-                    "content": f"Write a Japanese wine tasting note (about 200 characters) starting with 'このワインは' for a wine with these characteristics: {prompt}. Use elegant and poetic Japanese expressions."
+                    "content": f"Write a Japanese tasting note (about 200 characters) starting with 'この飲み物は' for a beverage with these characteristics: {prompt}. Use elegant and poetic Japanese expressions."
                 }
             ],
             "max_tokens": 300,
@@ -200,9 +189,9 @@ class CORSProxyHandler(http.server.SimpleHTTPRequestHandler):
         if 'choices' in result and len(result['choices']) > 0:
             content = result['choices'][0]['message']['content'].strip()
             
-            # 「このワインは」で始まるように調整
-            if not content.startswith('このワインは'):
-                content = f"このワインは{content}"
+            # 「この飲み物は」で始まるように調整
+            if not content.startswith('この飲み物は'):
+                content = f"この飲み物は{content}"
             
             return {
                 "content": content,
