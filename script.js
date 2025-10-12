@@ -777,6 +777,33 @@ class FlavorVerse {
             console.error('navList要素が見つかりません');
         }
         
+        // Usage guide
+        const navUsage = document.getElementById('navUsage');
+        if (navUsage) {
+            navUsage.addEventListener('click', () => {
+                this.animateNavItem(navUsage);
+                this.showUsageGuide();
+            });
+        }
+        
+        // Close usage modal
+        const closeUsageModal = document.getElementById('closeUsageModal');
+        if (closeUsageModal) {
+            closeUsageModal.addEventListener('click', () => {
+                this.closeUsageGuide();
+            });
+        }
+        
+        // Close modal when clicking outside
+        const usageModal = document.getElementById('usageModal');
+        if (usageModal) {
+            usageModal.addEventListener('click', (e) => {
+                if (e.target === usageModal) {
+                    this.closeUsageGuide();
+                }
+            });
+        }
+        
         // 設定メニューは削除済み（navSettings要素は存在しない）
         
         // List page controls (検索・ソート機能は削除済み)
@@ -2841,6 +2868,31 @@ class FlavorVerse {
             settingsPage.style.display = 'block';
             settingsPage.classList.add('visible');
             this.loadSettingsPage();
+        }
+    }
+
+    // 使い方ガイドを表示
+    showUsageGuide() {
+        const usageModal = document.getElementById('usageModal');
+        if (usageModal) {
+            usageModal.style.display = 'flex';
+            // ナビゲーションメニューを閉じる
+            this.closeNavMenu();
+            // アニメーション用
+            setTimeout(() => {
+                usageModal.classList.add('show');
+            }, 10);
+        }
+    }
+
+    // 使い方ガイドを閉じる
+    closeUsageGuide() {
+        const usageModal = document.getElementById('usageModal');
+        if (usageModal) {
+            usageModal.classList.remove('show');
+            setTimeout(() => {
+                usageModal.style.display = 'none';
+            }, 300);
         }
     }
 

@@ -30,6 +30,10 @@
                         <span class="nav-icon">📋</span>
                         <span class="nav-text">一覧</span>
                     </div>
+                    <div class="nav-item" id="navUsage">
+                        <span class="nav-icon">ℹ️</span>
+                        <span class="nav-text">使い方</span>
+                    </div>
                     <!-- 設定メニューは削除 -->
                 </div>
             </div>
@@ -232,6 +236,85 @@
         </footer>
     </div>
 
+    <!-- Usage Guide Modal -->
+    <div class="modal" id="usageModal" style="display: none;">
+        <div class="modal-content usage-guide">
+            <span class="close-modal" id="closeUsageModal">&times;</span>
+            <h2>📖 FlavorVerseの使い方</h2>
+            
+            <div class="usage-section">
+                <h3>🎯 FlavorVerseとは？</h3>
+                <p>FlavorVerseは、ワインやウイスキーのテイスティング体験をAI技術で美しいテイスティングノートに変換するアプリケーションです。</p>
+            </div>
+
+            <div class="usage-section">
+                <h3>📝 基本的な使い方</h3>
+                <div class="usage-step">
+                    <h4>STEP 1: 飲み物タイプを選択</h4>
+                    <p>ワインまたはウイスキーから、テイスティングする飲み物のタイプを選択してください。</p>
+                </div>
+                <div class="usage-step">
+                    <h4>STEP 2: フレーバーを選択</h4>
+                    <p>感じたフレーバーをカテゴリから選択します。カスタムフレーバーを追加することも可能です。</p>
+                    <ul>
+                        <li><strong>果実</strong>: りんご、ベリー、柑橘系など</li>
+                        <li><strong>花</strong>: バラ、スミレ、ジャスミンなど</li>
+                        <li><strong>香辛料</strong>: バニラ、シナモン、ペッパーなど</li>
+                        <li><strong>その他</strong>: オーク、コーヒー、チョコレートなど</li>
+                    </ul>
+                </div>
+                <div class="usage-step">
+                    <h4>STEP 3: テイスティングノート生成</h4>
+                    <p>「フレーバーを確定」ボタンを押すと、AIが美しいテイスティングノートを自動生成します。</p>
+                </div>
+            </div>
+
+            <div class="usage-section">
+                <h3>✨ 便利な機能</h3>
+                <div class="usage-feature">
+                    <h4>📸 写真登録</h4>
+                    <p>ワインラベルやウイスキーボトルの写真を撮影・アップロードできます（オプション）。</p>
+                </div>
+                <div class="usage-feature">
+                    <h4>🎨 カスタムフレーバー</h4>
+                    <p>「その他」カテゴリで独自のフレーバーを追加できます。</p>
+                </div>
+                <div class="usage-feature">
+                    <h4>📝 詩的レベル調整</h4>
+                    <p>箇条書きから詩的な表現まで、6段階の表現レベルを選択可能です。</p>
+                </div>
+                <div class="usage-feature">
+                    <h4>💾 保存機能</h4>
+                    <p>生成したテイスティングノートを保存し、後から確認できます。</p>
+                </div>
+                <div class="usage-feature">
+                    <h4>📋 コピー機能</h4>
+                    <p>生成したテキストをワンクリックでクリップボードにコピーできます。</p>
+                </div>
+            </div>
+
+            <div class="usage-section">
+                <h3>💡 ヒント</h3>
+                <ul class="usage-tips">
+                    <li>複数のフレーバーを選択すると、より詳細なテイスティングノートが生成されます</li>
+                    <li>カスタムフレーバーで独自の表現を追加できます</li>
+                    <li>詩的レベルを調整して、好みの文体を選べます</li>
+                    <li>生成したノートは「一覧」から確認・管理できます</li>
+                    <li>「最初から」ボタンで新しいテイスティングを開始できます</li>
+                </ul>
+            </div>
+
+            <div class="usage-section">
+                <h3>🤖 AI技術について</h3>
+                <p>FlavorVerseは、Google GeminiやGroq AIなどの最先端AI技術を活用しています。選択されたフレーバーと飲み物タイプに基づいて、自然で美しい日本語のテイスティングノートを生成します。</p>
+            </div>
+
+            <div class="usage-section">
+                <h3>❓ お問い合わせ</h3>
+                <p>ご質問やフィードバックがございましたら、GitHubリポジトリまでお願いいたします。</p>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>

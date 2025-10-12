@@ -2189,3 +2189,206 @@ body {
 .remove-custom-flavor:hover {
     background: #C82333;
 }
+
+/* Usage Guide Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    backdrop-filter: blur(5px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal.show {
+    opacity: 1;
+}
+
+.usage-guide {
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 2.5rem;
+    position: relative;
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+.usage-guide h2 {
+    color: #8B4513;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    text-align: center;
+    border-bottom: 3px solid #D2B48C;
+    padding-bottom: 1rem;
+}
+
+.usage-section {
+    margin-bottom: 2.5rem;
+    padding: 1.5rem;
+    background: #F8F9FA;
+    border-radius: 12px;
+    border-left: 4px solid #8B4513;
+}
+
+.usage-section h3 {
+    color: #8B4513;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.usage-section p {
+    color: #333;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+}
+
+.usage-step {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 8px;
+    border: 2px solid #D2B48C;
+}
+
+.usage-step h4 {
+    color: #667eea;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.usage-step p {
+    color: #555;
+    margin-bottom: 0.5rem;
+}
+
+.usage-step ul {
+    margin-left: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.usage-step li {
+    color: #666;
+    margin-bottom: 0.3rem;
+    line-height: 1.6;
+}
+
+.usage-feature {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #E9ECEF;
+}
+
+.usage-feature h4 {
+    color: #667eea;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.usage-feature p {
+    color: #555;
+    margin-bottom: 0;
+}
+
+.usage-tips {
+    list-style: none;
+    padding: 0;
+}
+
+.usage-tips li {
+    padding: 0.8rem;
+    margin-bottom: 0.5rem;
+    background: white;
+    border-radius: 8px;
+    border-left: 3px solid #667eea;
+    color: #555;
+    line-height: 1.6;
+}
+
+.usage-tips li:before {
+    content: "💡 ";
+    margin-right: 0.5rem;
+}
+
+.close-modal {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    font-size: 2rem;
+    color: #999;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: transparent;
+}
+
+.close-modal:hover {
+    color: #333;
+    background: #F0F0F0;
+    transform: rotate(90deg);
+}
+
+/* Usage Guide Mobile Styles */
+@media (max-width: 768px) {
+    .usage-guide {
+        max-width: 95%;
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+
+    .usage-guide h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .usage-section {
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .usage-section h3 {
+        font-size: 1.2rem;
+    }
+
+    .usage-step {
+        padding: 0.8rem;
+    }
+
+    .usage-step h4 {
+        font-size: 1rem;
+    }
+
+    .usage-feature {
+        padding: 0.8rem;
+    }
+
+    .usage-feature h4 {
+        font-size: 1rem;
+    }
+
+    .close-modal {
+        top: 1rem;
+        right: 1rem;
+        font-size: 1.5rem;
+        width: 35px;
+        height: 35px;
+    }
+}
